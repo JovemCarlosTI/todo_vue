@@ -8,6 +8,7 @@ const searchTaskName = ref("")
 const tasks = reactive([])
 const inputTaskName = ref(null)
 const hasTask = ref(false)
+const qtdDones = ref(0)
 
 const showAlert = ref(false)
 const textAlert = ref("")
@@ -34,6 +35,9 @@ class Task {
 
   toggleDone() {
     this.done = !this.done
+    
+    if(this.done) qtdDones.value++
+    else qtdDones.value--
   }
 }
 
@@ -79,6 +83,8 @@ function wantToDeleteTask(taskName) {
 }
 
 function removeTask(taskToRemove) {
+  if(taskToRemove.done) qtdDones.value--
+
   const taskIndex = tasks.findIndex(task => task == taskToRemove)
   this.tasks.splice(taskIndex, 1)
 
@@ -117,6 +123,12 @@ function showAlertDiv(text, styleClass, time='5000') {
     </div>
     <input type="text" class="form-control" v-model="searchTaskName" placeholder="Filtrar tarefas">
   <div class="alert" ref="alertDiv" role="alert" v-show="showAlert" v-text="textAlert"></div>
+  <div v-show="hasTask" class="d-flex align-items-center m-3">
+    <span class="material-symbols-outlined">
+      check_circle
+    </span>
+    {{ qtdDones }} / {{ tasks.length }}
+  </div>
   <div id="tasks" v-if="hasTask">
     <TaskView v-for="task in tasks"
       :name="task.getName()"
