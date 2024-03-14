@@ -52,8 +52,13 @@ function addTask() {
   if(taskName.value != "") {
     const newTask = new Task(taskName.value)
     tasks.push(newTask)
+
+    const name = taskName.value.length > 75
+      ? taskName.value.substring(0, 75) + "..."
+      : taskName.value
+
     showAlertDiv(
-      `Tarefa '${taskName.value}' criada com sucesso!`,
+      `Tarefa '${name}' criada com sucesso!`,
       'alert-success'
     )
     taskName.value = ""
@@ -64,8 +69,11 @@ function addTask() {
 }
 
 function wantToDeleteTask(taskName) {
+  const name = taskName.length > 75
+    ? taskName.substring(0, 75) + "..."
+    : taskName
   showAlertDiv(
-    `Tem certeza que deseja apagar a tarefa '${taskName}'? Clique novamente para apagar!`,
+    `Tem certeza que deseja apagar a tarefa '${name}'? Clique novamente para apagar!`,
     'alert-danger'
   )
 }
@@ -74,7 +82,11 @@ function removeTask(taskToRemove) {
   const taskIndex = tasks.findIndex(task => task == taskToRemove)
   this.tasks.splice(taskIndex, 1)
 
-  showAlertDiv(`Tarefa '${taskToRemove.name}' removida com sucesso!`, 'alert-danger')
+  const name = taskToRemove.name.length > 75
+    ? taskToRemove.name.substring(0, 75) + "..."
+    : taskToRemove.name
+
+  showAlertDiv(`Tarefa '${name}' removida com sucesso!`, 'alert-danger')
   if(this.tasks.length == 0) hasTask.value = false
 }
 
