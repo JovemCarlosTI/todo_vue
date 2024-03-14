@@ -38,8 +38,7 @@ import { computed, ref } from 'vue';
                 'list-style': 'none',
                 'margin': '0 16px 8px',
                 'order': props.done ? '999' : 'inherit',
-                'padding': '16px',
-                'text-decoration-line': props.done ? 'line-through' : 'none',
+                'padding': '16px 0 0',
             }; 
         }
     })
@@ -48,9 +47,13 @@ import { computed, ref } from 'vue';
 
 <template>
     <div v-show="show" :style="liStyle">
-      <input type="checkbox" class="form-check-input" :checked="props.done" @change="onClickCheckbox">
-      <span>{{ name }}</span>
-      <button class="btn btn-danger" @click="toDelete">Apagar</button>
+        <input type="checkbox" class="form-check-input mx-4" :checked="props.done" @change="onClickCheckbox">
+        <span class="mx-4" :style="{'text-decoration-line': props.done ? 'line-through' : 'none'}">{{ name }}</span>
+        <button class="btn btn-danger " @click="toDelete">
+            <span class="material-symbols-outlined">
+                delete_forever
+            </span>
+        </button>
     </div>
 </template>
 
@@ -60,6 +63,11 @@ import { computed, ref } from 'vue';
     }
 
     button {
-        margin-left: 8px;
+        margin: 16px 0 0;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        text-decoration-line: none !important;
+        justify-content: center;
     }
 </style>
