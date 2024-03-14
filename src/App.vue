@@ -122,6 +122,7 @@ function showAlertDiv(text, styleClass, time='5000') {
       :name="task.getName()"
       :done="task.getDone()"
       :show="task.getShow()"
+      @dblclick="task.toggleDone()"
       @toggleDone="task.toggleDone()"
       @deleteTask="removeTask(task)"
       @wantToDeleteTask="wantToDeleteTask"

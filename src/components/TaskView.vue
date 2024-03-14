@@ -49,7 +49,7 @@ import { computed, ref } from 'vue';
     <div id="task" v-show="show" :style="liStyle">
         <div class="mt-2 d-flex align-items-center">
             <input id="checkboxInput" type="checkbox" class="form-check-input mx-4" :checked="props.done" @change="onClickCheckbox">
-            <span class="mx-4" :style="{'text-decoration-line': props.done ? 'line-through' : 'none'}">{{ name }}</span>
+            <span class="mx-4" :style="{'text-decoration-line': props.done ? 'line-through' : 'none', 'user-select': 'none'}">{{ name }}</span>
         </div>
         <button class="btn btn-danger " @click="toDelete">
             <span class="material-symbols-outlined">
