@@ -47,7 +47,7 @@ import { computed, ref } from 'vue';
 
 <template>
     <div id="task" v-show="show" :style="liStyle">
-        <div class="mt-2 d-flex align-items-center">
+        <div class="mt-2 d-flex align-items-center" @dblclick="onClickCheckbox">
             <input id="checkboxInput" type="checkbox" class="form-check-input mx-4" :checked="props.done" @change="onClickCheckbox">
             <span class="mx-4" :style="{'text-decoration-line': props.done ? 'line-through' : 'none', 'user-select': 'none'}">{{ name }}</span>
         </div>

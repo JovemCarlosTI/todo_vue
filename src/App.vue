@@ -121,7 +121,7 @@ function showAlertDiv(text, styleClass, time='5000') {
       @keyup.enter="addTask">
       <button class="btn btn-primary" @click="addTask">Criar Tarefa</button>
     </div>
-    <input type="text" class="form-control" v-model="searchTaskName" placeholder="Filtrar tarefas">
+    <input type="text" class="form-control m-4" v-model="searchTaskName" placeholder="Filtrar tarefas">
   <div class="alert" ref="alertDiv" role="alert" v-show="showAlert" v-text="textAlert"></div>
   <div v-show="hasTask" class="d-flex align-items-center m-3">
     <span class="material-symbols-outlined">
@@ -134,7 +134,6 @@ function showAlertDiv(text, styleClass, time='5000') {
       :name="task.getName()"
       :done="task.getDone()"
       :show="task.getShow()"
-      @dblclick="task.toggleDone()"
       @toggleDone="task.toggleDone()"
       @deleteTask="removeTask(task)"
       @wantToDeleteTask="wantToDeleteTask"
@@ -147,6 +146,10 @@ function showAlertDiv(text, styleClass, time='5000') {
 </template>
 
 <style scoped>
+  .form-control {
+    width: 75vw;
+  }
+
   #criar-tarefa > * {
     margin-right: 8px;
   }
