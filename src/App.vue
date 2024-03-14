@@ -127,7 +127,7 @@ function showAlertDiv(text, styleClass, time='5000') {
     <span class="material-symbols-outlined">
       check_circle
     </span>
-    {{ qtdDones }} / {{ tasks.length }}
+    <span>{{ qtdDones }} / {{ tasks.length }}</span>
   </div>
   <div id="tasks" v-if="hasTask">
     <TaskView v-for="task in tasks"
@@ -140,6 +140,10 @@ function showAlertDiv(text, styleClass, time='5000') {
     />
   </div>
   <div id="no-tasks-info" class="d-flex flex-column" v-else>
+    <div id="kanban-image">
+      <img src="/img/kanban.jpg" alt="Quadro kanban de ilustração"/>
+      <a href="https://www.freepik.com/free-vector/kanban-method-concept-illustration_28902449.htm#query=kanban&position=1&from_view=keyword&track=sph&uuid=7d595844-9766-45d6-8e5b-98d34cd654be">Image by storyset</a> on Freepik
+    </div>
     <h2 class="text-center">Nenhuma tarefa encontrada!</h2>
     <p class="--bs-light-bg-subtle text-center">Crie uma nova tarefa {{ searchTaskName != "" ? "ou procure por outro nome" : "" }}</p>
   </div>
@@ -154,6 +158,18 @@ function showAlertDiv(text, styleClass, time='5000') {
     margin-right: 8px;
   }
 
+  #kanban-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  #kanban-image > img {
+    width: 25vw;
+  }
+
   #criar-tarefa, #tasks {
     margin-bottom: 8px;
     display: flex;
@@ -163,9 +179,5 @@ function showAlertDiv(text, styleClass, time='5000') {
     display: flex;
     flex-wrap: wrap;
     margin-top: 2rem;
-  }
-
-  #no-tasks-info {
-    margin-top: 6rem;
   }
 </style>
