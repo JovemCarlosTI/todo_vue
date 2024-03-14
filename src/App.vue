@@ -7,6 +7,7 @@ const taskName = ref("")
 const searchTaskName = ref("")
 const tasks = reactive([])
 const inputTaskName = ref(null)
+const hasTask = ref(false)
 
 const showAlert = ref(false)
 const textAlert = ref("")
@@ -37,10 +38,13 @@ class Task {
 }
 
 watch(searchTaskName, () => {
+  hasTask.value = false
   tasks.forEach(task => {
     if(searchTaskName == "") task.show = true
-    else if (task.name.toLowerCase().includes(searchTaskName.value.toLowerCase())) task.show = true
-    else task.show = false
+    else if (task.name.toLowerCase().includes(searchTaskName.value.toLowerCase())) {
+      task.show = true
+      hasTask.value = true
+    } else task.show = false
   })
 })
 
@@ -53,7 +57,7 @@ function addTask() {
       'alert-success'
     )
     taskName.value = ""
-
+    hasTask.value = true
   }
 
   if(inputTaskName) inputTaskName.value.focus()
@@ -71,6 +75,7 @@ function removeTask(taskToRemove) {
   this.tasks.splice(taskIndex, 1)
 
   showAlertDiv(`Tarefa '${taskToRemove.name}' removida com sucesso!`, 'alert-danger')
+  if(this.tasks.length == 0) hasTask.value = false
 }
 
 function showAlertDiv(text, styleClass, time='5000') {
@@ -100,7 +105,7 @@ function showAlertDiv(text, styleClass, time='5000') {
     </div>
     <input type="text" class="form-control" v-model="searchTaskName" placeholder="Filtrar tarefas">
   <div class="alert" ref="alertDiv" role="alert" v-show="showAlert" v-text="textAlert"></div>
-  <div id="tasks">
+  <div id="tasks" v-if="hasTask">
     <TaskView v-for="task in tasks"
       :name="task.getName()"
       :done="task.getDone()"
@@ -110,6 +115,10 @@ function showAlertDiv(text, styleClass, time='5000') {
       @wantToDeleteTask="wantToDeleteTask"
     />
   </div>
+  <div id="no-tasks-info" class="d-flex flex-column" v-else>
+    <h2 class="text-center">Nenhuma tarefa encontrada!</h2>
+    <p class="--bs-light-bg-subtle text-center">Crie uma nova tarefa {{ searchTaskName != "" ? "ou procure por outro nome" : "" }}</p>
+  </div>
 </template>
 
 <style scoped>
@@ -117,7 +126,7 @@ function showAlertDiv(text, styleClass, time='5000') {
     margin-right: 8px;
   }
 
-  div > * {
+  #criar-tarefa, #tasks {
     margin-bottom: 8px;
     display: flex;
   }
@@ -125,5 +134,10 @@ function showAlertDiv(text, styleClass, time='5000') {
   #tasks {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  #no-tasks-info {
+    margin-top: 6rem;
   }
 </style>
