@@ -97,8 +97,8 @@ function showAlertDiv(text, styleClass, time='5000') {
       <input type="text" class="form-control"  ref="inputTaskName" v-model="taskName" placeholder="Nome da tarefa"
       @keyup.enter="addTask">
       <button class="btn btn-primary" @click="addTask">Criar Tarefa</button>
-      <input type="text" class="form-control" v-model="searchTaskName" placeholder="Filtrar tarefas">
     </div>
+    <input type="text" class="form-control" v-model="searchTaskName" placeholder="Filtrar tarefas">
   <div class="alert" ref="alertDiv" role="alert" v-show="showAlert" v-text="textAlert"></div>
   <div id="tasks">
     <TaskView v-for="task in tasks"
@@ -113,6 +113,10 @@ function showAlertDiv(text, styleClass, time='5000') {
 </template>
 
 <style scoped>
+  #criar-tarefa > * {
+    margin-right: 8px;
+  }
+
   div > * {
     margin-bottom: 8px;
     display: flex;
