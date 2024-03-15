@@ -48,10 +48,10 @@ import { computed, ref } from 'vue';
 <template>
     <div id="task" v-show="show" :style="liStyle">
         <div class="mt-2 d-flex align-items-center" @dblclick="onClickCheckbox">
-            <input id="checkboxInput" type="checkbox" class="form-check-input mx-4" :checked="props.done" @change="onClickCheckbox">
+            <input :id="'checkboxInput ' + props.name" type="checkbox" class="form-check-input mx-4" :checked="props.done" @change="onClickCheckbox">
             <span class="mx-4" :style="{'text-decoration-line': props.done ? 'line-through' : 'none', 'user-select': 'none'}">{{ name }}</span>
         </div>
-        <button class="btn btn-danger " @click="toDelete">
+        <button :id="'deleteButton' + props.name"  class="btn btn-danger " @click="toDelete">
             <span class="material-symbols-outlined">
                 delete_forever
             </span>
@@ -72,7 +72,7 @@ import { computed, ref } from 'vue';
         margin-right: 4px;
     }
 
-    #checkboxInput {
+    .form-check-input {
         width: 32px;
         height: 32px;
         border-radius: 50%;

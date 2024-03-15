@@ -3,6 +3,8 @@ import { reactive, ref, watch } from 'vue'
 
 import TaskView from './components/TaskView.vue'
 
+import Task from './models/Task.js'
+
 const taskName = ref("")
 const searchTaskName = ref("")
 const tasks = reactive([])
@@ -13,33 +15,6 @@ const qtdDones = ref(0)
 const showAlert = ref(false)
 const textAlert = ref("")
 const alertDiv = ref(null)
-
-class Task {
-  constructor(name) {
-    this.name = name
-    this.done = ref(false)
-    this.show = ref(true)
-  }
-
-  getName() {
-    return this.name
-  }
-
-  getDone() {
-    return this.done
-  }
-
-  getShow() {
-    return this.show
-  }
-
-  toggleDone() {
-    this.done = !this.done
-    
-    if(this.done) qtdDones.value++
-    else qtdDones.value--
-  }
-}
 
 watch(searchTaskName, () => {
   hasTask.value = false
@@ -111,7 +86,13 @@ function showAlertDiv(text, styleClass, time='5000') {
   alertDiv.value.classList.add("alert", styleClass)
   textAlert.value = text
   showAlert.value = true
+}
 
+function updateDones(task) {  
+  task.toggleDone()
+
+  if(task.done) qtdDones.value++
+  else qtdDones.value--
 }
 </script>
 
@@ -134,7 +115,7 @@ function showAlertDiv(text, styleClass, time='5000') {
       :name="task.getName()"
       :done="task.getDone()"
       :show="task.getShow()"
-      @toggleDone="task.toggleDone()"
+      @toggleDone="() => updateDones(task)"
       @deleteTask="removeTask(task)"
       @wantToDeleteTask="wantToDeleteTask"
     />
