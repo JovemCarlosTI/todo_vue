@@ -103,8 +103,8 @@ function updateDones(task) {
       <button class="btn btn-primary" @click="addTask">Criar Tarefa</button>
     </div>
     <input type="text" class="form-control m-4" v-model="searchTaskName" placeholder="Filtrar tarefas">
-  <div class="alert" ref="alertDiv" role="alert" v-show="showAlert" v-text="textAlert"></div>
-  <div v-show="hasTask" class="d-flex align-items-center m-3">
+  <div class="" ref="alertDiv" role="alert" v-show="showAlert" v-text="textAlert"></div>
+  <div class="d-flex align-items-center m-3">
     <span class="material-symbols-outlined">
       check_circle
     </span>
